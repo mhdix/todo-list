@@ -153,6 +153,8 @@ button{
   outline: 0;
 
 }
+
+/* for icon inner button */
 button > i {
   pointer-events: none;
 } 

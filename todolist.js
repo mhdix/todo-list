@@ -24,6 +24,11 @@ function addNewTodo(e) {
   todos.push(newTodo);
 
   //create todos on DOM
+  createTodo(todos);
+}
+
+// create todo on DOM fun
+function createTodo(todos) {
   let result = "";
   todos.forEach((todo) => {
     result += `<li class="todo" style="display: flex; align-items: center; gap: 10px; border: 1px solid black; width: fit-content; padding: 10px 20px; border-radius: 8px;">
@@ -31,8 +36,8 @@ function addNewTodo(e) {
                     <span class="todo__createdAt">${new Date(
                       todo.createdAt
                     ).toLocaleDateString("fa-IR")}</span>
-                    <button><i class="todo__check far fa-check-square"></i></button>
-                    <button><i class="todo__remove far fa-trash-alt"></i></button>
+                    <button class="todo__check" data-todo-id=${todo.id}><i class="far fa-check-square"></i></button>
+                    <button class="todo__remove" data-todo-id=${todo.id}><i class="far fa-trash-alt"></i></button>
                 </li>`;
   });
 
@@ -40,5 +45,56 @@ function addNewTodo(e) {
   todoInput.value = "";
 }
 
-console.log(todos);
-//? filter Todos
+//? filter Todos video 
+const selectTodo = document.querySelector(".filter-todos");
+selectTodo.addEventListener("change", filterTodos);
+function filterTodos(e) {
+  const filter = e.target.value;
+
+  switch (filter) {
+    case "all": {
+      createTodo(todos);
+      break;
+    }
+    case "completed": {
+      const filter = todos.filter((todo) => todo.isComplated);
+      createTodo(filter);
+      break;
+    }
+    case "uncompleted": {
+      const filter = todos.filter((todo) => !todo.isComplated);
+      createTodo(filter);
+      break;
+    }
+    default:
+      "";
+  }
+}
+
+//?  flilter todos ❌self
+// const selectTodo = document.querySelector(".filter-todos");
+// selectTodo.addEventListener('change', filterTodos)
+
+// function filterTodos(e) {
+//   const filter = e.target.value;
+//   switch (filter) {
+//     case "all": {
+//       createTodo(todos);
+//       break;
+//     }
+//     case "completed": {
+//       const filter = todos.filter((todo) => todo.isComplated);
+//       createTodo(filter);
+//       break;
+//     }
+//     case "uncompleted": {
+//       const filter = todos.filter((todo) => !todo.isComplated);
+//       createTodo(filter);
+//       break;
+//     }
+//     default:
+//       createTodo(todos);
+//   }
+// } 
+
+//? Delete Todo ❌video
