@@ -1,11 +1,10 @@
 // form => sumbit => create new Todo => {id, createdAt, title:, isCOmplated}
 // const todos = [] => todos.push( ... )
 
-const todos = [];
+let todos = [];
 
 const todoInput = document.querySelector(".todo-input");
 const todoForm = document.querySelector(".todo-form");
-// const todoBtn = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todolist");
 
 todoForm.addEventListener("submit", addNewTodo);
@@ -43,14 +42,23 @@ function createTodo(todos) {
 
   todoList.innerHTML = result;
   todoInput.value = "";
+
+  // delete
+
+    // چون این آیدی هنوز توی دام نبودی باید با همین فانکشن که تودو ها توش هستن کار کنیم
+  const removeBtn = [...document.querySelectorAll('.todo__remove')]
+  removeBtn.forEach((btn) => btn.addEventListener("click", removeTodo));
+
 }
 
-//? filter Todos video 
+// filter Todos video 
 const selectTodo = document.querySelector(".filter-todos");
+
 selectTodo.addEventListener("change", filterTodos);
+
 function filterTodos(e) {
   const filter = e.target.value;
-
+  
   switch (filter) {
     case "all": {
       createTodo(todos);
@@ -68,33 +76,15 @@ function filterTodos(e) {
     }
     default:
       "";
+    }
   }
-}
 
-//?  flilter todos ❌self
-// const selectTodo = document.querySelector(".filter-todos");
-// selectTodo.addEventListener('change', filterTodos)
-
-// function filterTodos(e) {
-//   const filter = e.target.value;
-//   switch (filter) {
-//     case "all": {
-//       createTodo(todos);
-//       break;
-//     }
-//     case "completed": {
-//       const filter = todos.filter((todo) => todo.isComplated);
-//       createTodo(filter);
-//       break;
-//     }
-//     case "uncompleted": {
-//       const filter = todos.filter((todo) => !todo.isComplated);
-//       createTodo(filter);
-//       break;
-//     }
-//     default:
-//       createTodo(todos);
-//   }
-// } 
-
-//? Delete Todo ❌video
+  // Delete Todo ❌video
+  removeBtn.addEventListener("click", removeTodo);
+  function removeTodo (e) {
+    const todoId = e.target.dataset.todoId
+    const removeTodo = todos.filter((todo) => todo.id != todoId);
+    createTodo(removeTodo)
+  }
+  
+// delete todo --self
