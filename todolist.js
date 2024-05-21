@@ -41,19 +41,4 @@ function addNewTodo(e) {
 }
 
 console.log(todos);
-
-// const todos = [];
-// const todoForm = document.querySelector(".todo-form");
-
-// todoForm.addEventListener("sumbit", addTodos);
-
-// function addNewTodo(e) {
-//     const newTodo = {
-//         id: Date.now(),
-//         createdAt: new Date().toISOString(),
-//     }
-//   e.preventDefault();
-// }
-
-console.log(new Date().toISOString('fa-IR'));
-// console.log('fgdgs');
+//? filter Todos
