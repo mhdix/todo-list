@@ -85,12 +85,13 @@ function filterTodos(e) {
   }
 }
 
+// removeBtn.addEventListener("click", removeTodo);
 // Delete Todo ❌video
-removeBtn.addEventListener("click", removeTodo);
 function removeTodo(e) {
   const todoId = e.target.dataset.todoId;
   const removeTodo = todos.filter((todo) => todo.id != todoId);
-  createTodo(removeTodo);
+  todos = removeTodo
+  createTodo(todos);
 }
 
 // delete todo --self
