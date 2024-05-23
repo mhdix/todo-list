@@ -35,8 +35,12 @@ function createTodo(todos) {
                     <span class="todo__createdAt">${new Date(
                       todo.createdAt
                     ).toLocaleDateString("fa-IR")}</span>
-                    <button class="todo__check" data-todo-id=${todo.id}><i class="far fa-check-square"></i></button>
-                    <button class="todo__remove" data-todo-id=${todo.id}><i class="far fa-trash-alt"></i></button>
+                    <button class="todo__check" data-todo-id=${
+                      todo.id
+                    }><i class="far fa-check-square"></i></button>
+                    <button class="todo__remove" data-todo-id=${
+                      todo.id
+                    }><i class="far fa-trash-alt"></i></button>
                 </li>`;
   });
 
@@ -45,20 +49,24 @@ function createTodo(todos) {
 
   // delete
 
-    // چون این آیدی هنوز توی دام نبودی باید با همین فانکشن که تودو ها توش هستن کار کنیم
-  const removeBtn = [...document.querySelectorAll('.todo__remove')]
-  removeBtn.forEach((btn) => btn.addEventListener("click", removeTodo));
+  // چون این آیدی هنوز توی دام نبودی باید با همین فانکشن که تودو ها توش هستن کار کنیم
+  {
+    // const removeBtn = [...document.querySelectorAll('.todo__remove')]
+    // removeBtn.forEach((btn) => btn.addEventListener("click", removeTodo));
+  }
+  const removeBtn = [...document.querySelectorAll(".todo__remove")]
 
+  removeBtn.forEach(btn => btn.addEventListener('click' , removeTodo));
 }
 
-// filter Todos video 
+// filter Todos video
 const selectTodo = document.querySelector(".filter-todos");
 
 selectTodo.addEventListener("change", filterTodos);
 
 function filterTodos(e) {
   const filter = e.target.value;
-  
+
   switch (filter) {
     case "all": {
       createTodo(todos);
@@ -76,15 +84,22 @@ function filterTodos(e) {
     }
     default:
       "";
-    }
   }
+}
 
-  // Delete Todo ❌video
-  removeBtn.addEventListener("click", removeTodo);
-  function removeTodo (e) {
-    const todoId = e.target.dataset.todoId
-    const removeTodo = todos.filter((todo) => todo.id != todoId);
-    createTodo(removeTodo)
-  }
-  
+// Delete Todo ❌video
+// removeBtn.addEventListener("click", removeTodo);
+// function removeTodo (e) {
+//   const todoId = e.target.dataset.todoId
+//   const removeTodo = todos.filter((todo) => todo.id != todoId);
+//   createTodo(removeTodo)
+// }
+
 // delete todo --self
+
+removeBtn.addEventListener('click', removeTodo)
+function removeTodo(e) {
+  const todoId = e.target.dataset.todoId;
+  const removeTodo = todos.filter((todo) => todo.id != todoId);
+  createTodo(removeTodo);
+}
