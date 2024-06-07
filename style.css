@@ -157,4 +157,22 @@ button{
 /* for icon inner button */
 button > i {
   pointer-events: none;
-} 
+}
+
+/* modal */
+.modal {
+  position: absolute;
+  background-color: #d8d8d8;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+  z-index: 1;
+  /* width: 45rem; */
+  /* height: 20rem; */
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  display: block;
+}
+.modal__form {
+  width: fit-content;
+}
