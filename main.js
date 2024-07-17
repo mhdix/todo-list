@@ -1,4 +1,5 @@
 let todos = [];
+let filterValue = 'all'
 
 // select
 const todoInput = document.querySelector(".todo-input");
@@ -9,8 +10,10 @@ const selectFilter = document.querySelector(".filter-todos");
 
 // event
 todoForm.addEventListener("submit", addNewTodo);
-selectFilter.addEventListener("change", filterTodos);
-// removeBtns.addEventListener("click", () => {});
+selectFilter.addEventListener("change", (e) => {
+  filterValue = e.target.value
+  filterTodos()
+});
 
 // functions
 function addNewTodo(e) {
@@ -25,7 +28,7 @@ function addNewTodo(e) {
     isCompleted: false,
   };
   todos.push(newTodo);
-  createTodos(todos);
+  filterTodos();
 }
 
 function createTodos(todos) {
@@ -34,10 +37,14 @@ function createTodos(todos) {
   todos.forEach((todo) => {
     result += `
             <li class="todo">
-                <p class="todo__title">${todo.title}</p>
+                <p class="todo__title ${todo.isCompleted && "completed"}">${todo.title}</p>
                 <span class="todo__createdAt">1402/1/28</span>
-                <button class="todo__check" data-todo-id=${todo.id}><i class="far fa-check-square"></i></button>
-                <button class="todo__remove" data-todo-id=${todo.id}><i class="far fa-trash-alt"></i></button>
+                <button class="todo__check" data-todo-id=${
+                  todo.id
+                }><i class="far fa-check-square"></i></button>
+                <button class="todo__remove" data-todo-id=${
+                  todo.id
+                }><i class="far fa-trash-alt"></i></button>
             </li>
         `;
   });
@@ -48,12 +55,15 @@ function createTodos(todos) {
   // todo remove
   const removeBtns = [...document.querySelectorAll(".todo__remove ")];
   removeBtns.forEach((btn) => btn.addEventListener("click", removeTodos));
+
+  // todo check
+  const checkBtn = [...document.querySelectorAll(".todo__check")];
+  checkBtn.forEach((btn) => btn.addEventListener("click", checkTodo));
 }
 
 function filterTodos(e) {
-  // console.log(e.target.value);
-  const filter = e.target.value;
-  switch (filter) {
+  // const filter = e.target.value;
+  switch (filterValue) {
     case "all": {
       createTodos(todos);
       break;
@@ -77,5 +87,15 @@ function filterTodos(e) {
 function removeTodos(e) {
   const todoId = Number(e.target.dataset.todoId);
   todos = todos.filter((todo) => todo.id !== todoId);
-  createTodos(todos)
+
+  filterTodos()
 }
+
+// todo check
+function checkTodo(e) {
+  const todoId = Number(e.target.dataset.todoId);
+  const todo = todos.find((todo) => todo.id == todoId);
+  todo.isCompleted = !todo.isCompleted;
+
+  filterTodos()
+} 
